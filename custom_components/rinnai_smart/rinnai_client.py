@@ -25,7 +25,7 @@ class HTTPClient:
             "password": self._password,
             "accessKey": "A39C66706B83CCF0C0EE3CB23A39454D",
             "appType": "2",
-            "appVersion": "3.1.0",
+            "appVersion": "3.9.0",
             "identityLevel": "0",
         }
         response = await self._get_url("/app/V1/login", params=params)
@@ -38,7 +38,7 @@ class HTTPClient:
         return True
 
     async def _get_devices(self):
-        headers = {"Authorization": f"Bearer {self._token}"}
+        headers = {"Authorization": f"Basic {self._token}"}
         return await self._get_url("/app/V1/device/list", headers=headers)
 
     async def get_devices(self) -> list[dict] | None:
@@ -66,7 +66,7 @@ class HTTPClient:
         return devices_info
 
     async def _get_device_information(self, device_id: str):
-        headers = {"Authorization": f"Bearer {self._token}"}
+        headers = {"Authorization": f"Basic {self._token}"}
         params = {"deviceId": device_id}
         return await self._get_url(
             "/app/V1/device/processParameter", headers=headers, params=params
